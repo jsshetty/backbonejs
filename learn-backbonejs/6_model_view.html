@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+        <script>
+
+            // Model
+            var FirstModel = Backbone.Model.extend({
+                initialize:  function () {
+                    console.log("this is model")
+                    }
+            })
+            var fModel = new FirstModel({name:"sharath",anchor:"sharath", age: 25});
+
+
+            $(document).ready( function() {
+                // View
+                var FirstView = Backbone.View.extend({
+                    initialize:  function () {
+                        this.render();
+                    },
+                    render: function () {
+                       console.log(this.model.toJSON());
+                    }
+
+                });
+
+                var fView = new FirstView({
+                    // passing model to view
+                    model: fModel
+                });
+            })
+
+           
+
+        </script>
+    </body>
+</html>

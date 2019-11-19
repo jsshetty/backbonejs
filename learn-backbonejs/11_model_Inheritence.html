@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+        <script>
+            var FModel = Backbone.Model.extend({  // Parent Model
+                  initialize:function(){
+                     console.log("Parent Model is running");
+                  },
+                  Playing:function(){
+                     console.log("Parent Playing Method");
+                  }
+               });
+               
+               //var mymodel = new FModel();
+               
+               var ChildModel = FModel.extend({   // inheriting parent model
+                  
+                  ChildMethod:function(){
+                  console.log("Child MEthod called");
+               },
+               Playing:function(){
+                  FModel.prototype.Playing.apply(this);
+                  console.log("Child Playing method");
+               }
+               
+               });
+               
+               var childModel = new ChildModel();
+               </script>  
+            
+    </body>
+</html>

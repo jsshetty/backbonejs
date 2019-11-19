@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+        <!-- // View -->
+        <script>
+            
+                var View1 = Backbone.View.extend({
+                    
+                    //Default DOM element id "div"
+                    // Custom DOM element
+                        tagName: "span",
+                        id: "span-id",
+                        class: "span-class",
+
+                    initialize:  function () {
+                        this.render();
+                    },
+                    render: function () {
+                        console.log("Hi I am Sharath v1");
+                        this.$el.html("I am sharath v1");
+
+                        console.log(this.el);
+
+                    }
+
+                });
+
+                var View2 = Backbone.View.extend({
+                    
+                    //Default DOM element id "div"
+                    // Custom DOM element
+                        tagName: "span",
+                        id: "span-id",
+                        class: "span-class",
+
+                    initialize:  function () {
+                        this.render();
+                    },
+                    render: function () {
+                        console.log("Hi I am Sharath v2");
+                        this.$el.html("I am sharath v2");
+
+                        console.log(this.el);
+
+                    }
+
+                });
+
+                var View3 = Backbone.View.extend({
+                    
+                    //Default DOM element id "div"
+                    // Custom DOM element
+                        tagName: "span",
+                        id: "span-id",
+                        class: "span-class",
+
+                    initialize:  function () {
+                        this.render();
+                    },
+                    render: function () {
+                        console.log("Hi I am Sharath v3");
+                        this.$el.html("I am sharath v3");
+
+                        console.log(this.el);
+
+                    }
+
+                });
+
+                var PRouter = Backbone.Router.extend({
+                    routes: {
+                        "": "showV1",
+                        "v2": "showV2",
+                        "v3": "showV3"
+                    },
+                    showV1: function () {
+                        console.log("showv1");
+                        var view1 = new View1({el:"#root"});
+                    },
+                    showV2: function () {
+                        console.log("showv2");
+                        var view2 = new View2({el:"#root"});
+                    },
+                    showV3: function () {
+                        console.log("showv3");
+                        var view2 = new View3({el:"#root"});
+
+                    }
+                });
+                var router = new PRouter();
+                Backbone.history.start();
+
+        </script>
+    </body>
+</html>

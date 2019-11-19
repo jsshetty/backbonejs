@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+        <script>
+
+                var MyModel = Backbone.Model.extend();
+                 
+                 var mymodel = new MyModel({
+                    name:"Sanjay Kumar",
+                    team:"Profotech Solutions",
+                    age:26      
+                 });
+                 
+                 var mymodelObj2 = mymodel.clone();
+                 
+                 var MyView = Backbone.View.extend({
+                     model: mymodelObj2, 
+                     initialize:function(){
+                     this.render();
+                  },
+                  render:function(){
+                    
+                if(mymodelObj2.hasChanged()){
+                    console.log(mymodelObj2.previous("team"));
+                    console.log(mymodelObj2.previousAttributes());
+                    console.log(mymodelObj2.changedAttributes());
+                 }else{
+                    console.log("Value not changed");
+                 }
+                 
+                    //console.log(this.model.toJSON());
+                  
+                       //console.log("Online web tutor view is running...");
+                 
+                 this.listenTo(this.model,"change",this.modelChange);
+                 
+                  },
+                  modelChange:function(){
+                        console.log("Model Changed");
+                        console.log(this.model.changedAttributes());
+                  
+                  }
+                 });
+                 
+                 var myViewObj = new MyView();
+                 
+               </script>  
+            
+    </body>
+</html>

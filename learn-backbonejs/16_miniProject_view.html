@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+        <script type="text/template" id="vehicleTemplate">
+            <%= registrationNumber %> <button class="delete"> Delete </button>
+        </script>
+
+        <!-- // View -->
+        <script>
+
+            var Vehicle = Backbone.Model.extend({
+                idAttribute: "registrationNumber",
+
+                urlRoot: "/api/vehicles",
+                
+                initialize : function () {
+                    this.start();
+                },
+
+                start : function() {
+                },
+
+                validate: function(attribute) {
+                    console.log("Vehicle validation started....");
+                    if(!attribute.registrationNumber) {
+                        return "Model is not valid";
+                    };
+                }
+            })
+
+            var Vehicles = Backbone.Collection.extend({})
+
+            var vehicles = new Vehicles([
+               new Vehicle({registrationNumber:1, color:"blue"}),
+               new Vehicle({registrationNumber:2, color:"yellow"}),
+               new Vehicle({registrationNumber:3, color:"red"}),
+               new Vehicle({registrationNumber:4, color:"blue"}),
+               new Vehicle({registrationNumber:5, color:"yellow"}),
+               new Vehicle({registrationNumber:6, color:"red"}),
+        ])
+
+        var vehicleView = Backbone.View.extend({
+                tagName: "li",
+                model: vehicles,
+                template: _.template($("#vehicleTemplate").html()),
+
+                events : {
+                    'click .delete': 'onClickDelete'
+                },
+
+                onClickDelete: function(event) {
+                    console.log("event clicked:"+ JSON.stringify(event));
+                    this.remove();
+                },
+
+                initialize: function(){
+                    this.render();
+                },
+
+                render: function() {
+                    console.log(this.model);
+                    this.$el.html(this.template(this.model))
+                }
+            })
+        
+            $(document).ready( function() {
+            var vehiclesView = Backbone.View.extend({
+                    tagName: "ul",
+                    model: vehicles,
+
+                    initialize: function(){
+                        this.render();
+                    },
+
+                    render: function() {
+                        console.log(this.model);
+                        this.model.each(function(mod) {
+                            this.$el.append(new vehicleView({model:mod.toJSON()}).$el);
+                        },this)
+                        //this.$el.html(this.template(this.model.toJSON()))
+                        //this.$el.html(car.render().$el);
+                    }
+                })
+                var vehicView = new  vehiclesView({el:"#root"});
+        })
+
+
+        </script>
+    </body>
+</html>

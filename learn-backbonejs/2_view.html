@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+
+        // View
+        <script>
+            
+            $(document).ready( function() {
+                var FirstView = Backbone.View.extend({
+                    
+                    //Default DOM element id "div"
+                    // Custom DOM element
+                        tagName: "span",
+                        id: "span-id",
+                        class: "span-class",
+
+                    initialize:  function () {
+                        this.render();
+                    },
+                    render: function () {
+                        console.log("Hi I am Sharath");
+                        this.$el.html("I am sharath");
+
+                        console.log(this.el);
+
+                    }
+
+                });
+                var fView = new FirstView({
+                    el:"#root"
+                });
+                // initialize will take care of this
+                ///fView.render();
+            })
+
+        </script>
+    </body>
+</html>

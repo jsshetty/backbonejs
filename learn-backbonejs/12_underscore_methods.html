@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+    <script>
+        var FModel = Backbone.Model.extend();
+
+        var FCollection = Backbone.Collection.extend({
+            model: FModel
+        });
+
+        var player1 = new FModel({
+            name: "Ricky Ponting",
+            team: "Australia",
+            no: 1
+        });
+
+        var player2 = new FModel({
+            name: "Sachin",
+            team: "India",
+            no: 4
+        });
+
+        var player3 = new FModel({
+            name: "Chris Gayle",
+            team: "WestIndies",
+            no: 9
+        });
+
+        var fcollection = new FCollection();
+        fcollection.add([player1, player2, player3]);
+
+        var FView = Backbone.View.extend({
+            collection: fcollection,
+            initialize: function () {
+            this.render();
+            },
+            render: function () {
+            // _.each
+            _.each(this.collection.toJSON(),function(model){
+                console.log(model.name+" , "+model.team);
+            });
+            
+            //_.where
+            var playerdata = _.where(this.collection.toJSON(),{no:1});
+            console.log(playerdata);
+            
+            // _.findWhere
+            var playerdata1 = _.findWhere(this.collection.toJSON(),{no:1});
+            console.log(playerdata1);
+            
+            var playerdata1 = _.find(this.collection.toJSON(),function(model){
+                if(model.no === 1){
+                return model.name;
+            }
+            });
+            
+            //console.log(playerdata1);
+            
+            var playerdata = _.filter(this.collection.toJSON(),function(model){
+                if(model.no === 1){
+                return model.name;
+            }
+            });
+            
+            //console.log(playerdata);
+            
+            var playerdata = _.pluck(this.collection.toJSON(),"team");
+            console.log(playerdata);
+            }
+        });
+
+            new FView();   
+        </script>
+ </body>
+ </html>

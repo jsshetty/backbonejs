@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>     
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js"> </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone.js"> </script>
+    </head>
+
+    <body>
+
+        <div id="root"></div>
+
+        <!-- templates -->
+            <script type="text/template" id="templates">
+                I am <%= name %> author <%= author%> age is <%= age %>
+                <br>
+                <button id="clickMe">Click Me</button>
+        </script>
+
+        <script>
+            // Model
+            var FirstModel = Backbone.Model.extend({})
+
+            var fModel = new FirstModel(
+                    {name:"sharath",author:"shetty", age: 25}
+                );
+
+            // View
+            $(document).ready( function() {
+
+                var FirstView = Backbone.View.extend({
+
+                    events: {
+                        'click #clickMe' : 'OnCLick'
+                    },
+
+                    OnCLick: function() {
+                        console.log("Button Clicked");
+                    },
+
+                    template: _.template($('#templates').html()),
+
+                    initialize:  function () {
+                        this.render();
+                    },
+
+                    render: function () {
+                        console.log(this.model.toJSON());
+                        this.$el.html(this.template(this.model.toJSON()))
+                    }
+
+                });
+                
+                var fView = new FirstView({
+                    el: "#root",
+                    model: fModel
+                });
+            })
+
+           
+
+        </script>
+    </body>
+</html>
+
